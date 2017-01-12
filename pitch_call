@@ -1,0 +1,80 @@
+pitch.call <- function(pitches, counts, color="orange", color2="blue") {
+  # Creates pitch calling arm sleeve inserts
+  # Inputs:
+  #  pitches - vector of two letter character strings corresponding to each pitch
+  #  counts - vector of same length as pitches, with sum of elements equal to 150
+  #  color - color value for background
+  #  color2 - color value for text
+  # Returns:
+  #  two graphs, one for coach, one for catchers arm band.  Intended for RStudio use, scale graphics box according and size after
+  #    importing into word
+  par(mfrow=c(1,1), mar=c(0,0,0,0))
+  library(graphics)
+  plot(c(0,1), c(0,1), type='n')
+  polygon(c(0,.1,.1,0), c(0,0,1,1), col=color)
+  polygon(c(.5,.6,.6,.5), c(0,0,1,1), col=color)
+  polygon(c(.11,.49,.49,.11), c(.9,.9,1,1), col=color)
+  polygon(c(.61,.99,.99,.61), c(.9,.9,1,1), col=color)
+  polygon(c(.11,.49,.49,.11), c(.57,.57,.67,.67), col=color)
+  polygon(c(.61,.99,.99,.61), c(.57,.57,.67,.67), col=color)
+  polygon(c(.11,.49,.49,.11), c(.23,.23,.33,.33), col=color)
+  polygon(c(.61,.99,.99,.61), c(.23,.23,.33,.33), col=color)
+  up <- seq(.875, .70, length.out=5)
+  left <- .05
+  right <- .55
+  across <- seq(.15, .45, length.out=5)
+  heights <- c(.95, .62, .28)
+  for (i in 1:5) {
+    text(left, up[i], paste('0', i, sep=""), col=color2, cex=1.8)
+    text(left, up[i]-.33, paste('2', i, sep=""), col=color2, cex=1.8)
+    text(left, up[i]-.67, paste('4', i, sep=""), col=color2, cex=1.8)
+    text(right, up[i], paste('1', i, sep=""), col=color2, cex=1.8)
+    text(right, up[i]-.33, paste('3', i, sep=""), col=color2, cex=1.8)
+    text(right, up[i]-.67, paste('5', i, sep=""), col=color2, cex=1.8)
+    for (j in 1:3) {
+      text(across[i], heights[j], i, col=color2, cex=2)
+      text(across[i]+.5, heights[j], i, col=color2, cex=2)
+    }   
+  }
+  pitch <- c()
+  for (i in 1:length(pitches))
+    pitch <- c(pitch, rep(pitches[i], counts[i]))
+  pitch <- sample(pitch)
+  height1 <- c(up, up-.33, up-.67)
+  across1 <- c(across, across + .5)
+  across.n <- c(1:5,1:5)
+  m <- 1
+  ord <- c()
+  for (i in 1:3) {
+    ord <- c(ord, paste(c(rep(c(0,1)+2*(i-1),5)),sort(rep(1:5,2)), sep=""))
+  }
+  new.ord <- c()
+  for (i in 1:30) {
+    new.ord <- c(new.ord, paste(ord[i], 1:5, sep=""))
+  }
+  
+  for (two in 1:15) {
+    for (one in 1:10) {
+      text(across1[one], height1[two], pitch[m], cex=1.5)
+  
+      m <- m + 1
+    }
+  }
+  plot(c(0,11), c(0,16), type='n')
+  so.far <- .5
+  for (i in 1:length(pitches)) {
+    abline(16-so.far-.5, 0)
+    so.far <- so.far + 1
+    text(.2,16 - so.far, pitches[i], cex=3)
+    order <- sample(new.ord[pitch==pitches[i]])
+  
+    for (j in 1:length(order)) {
+      so.far <- so.far + .5 * (j%%10==0)
+      text(j%%10+1,16 - so.far, order[j])
+    }
+  }
+  text(5.5, 16, c(date()), col=color)
+}
+
+###Sample Usage
+pitch.call(pitches=c('FB', 'CH', 'BB'), counts=c(50,50,50), color="green", color2="purple")
