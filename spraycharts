@@ -120,9 +120,9 @@ for (i in 1:length(playbyplays)) {
   playbyplays[[i]] <- gsub("Hughes,Ian", "Hughes", playbyplays[[i]])
   playbyplays[[i]] <- gsub("Hughes, Ian", "Hughes", playbyplays[[i]])
   playbyplays[[i]] <- gsub("HUGHES, Ian", "Hughes", playbyplays[[i]])
-  playbyplays[[i]] <- gsub("Moyes,Ian", "Moyes", playbyplays[[i]])
-  playbyplays[[i]] <- gsub("Moyes, Ian", "Moyes", playbyplays[[i]])
-  playbyplays[[i]] <- gsub("MOYES, Ian", "Moyes", playbyplays[[i]])
+  playbyplays[[i]] <- gsub("Moyes,Ryan", "Moyes", playbyplays[[i]])
+  playbyplays[[i]] <- gsub("Moyes, Ryan", "Moyes", playbyplays[[i]])
+  playbyplays[[i]] <- gsub("MOYES, Ryan", "Moyes", playbyplays[[i]])
 }
 
 
