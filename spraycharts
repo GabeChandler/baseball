@@ -1,3 +1,5 @@
+field <- readPNG("baseballfieldbnw.PNG")
+
 require(XML)
 require(RCurl)
 require(stringr)
